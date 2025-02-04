@@ -19,9 +19,7 @@ This is a simple backend service built in Go that provides an API endpoint which
 
 ```json
 {
-  "email": "patrickaigbogunoti@gmail.com",
-  "current_datetime": "2025-02-03T12:34:56Z",
-  "github_url": "https://github.com/patrickaigbogun/backend_track"
+  
 }
 ```
 
@@ -34,13 +32,13 @@ This is a simple backend service built in Go that provides an API endpoint which
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/patrickaigbogun/backend_track.git
+   git clone https://github.com/patrickaigbogun/backend_track_1.git
    ```
 
 2. Navigate to the project directory:
 
    ```bash
-   cd backend_track
+   cd backend_track_1
    ```
    
 3. Run the application:
@@ -56,21 +54,21 @@ This is a simple backend service built in Go that provides an API endpoint which
 Once the server is running, you can access the endpoint by visiting:
 
 ```
-http://localhost:7000/hng_12/v0/1/
+http://localhost:7000/api/classify-number?number=<any number of your choice>
 ```
 
-This will return the JSON response with the user details.
+This will return the JSON response with a fun fact about the number you entered.
 
 ## File Structure
 
-```
-├── go.mod                  # Go module file
-├── hng                     # A folder that might contain additional resources
-├── main.go                 # Main Go file for the backend service
-├── README.md               # Project documentation
-└── tmp
-    ├── build-errors.log    # Log file for build errors
-    └── main                # Compiled main executable
+.
+├── go.mod
+├── main.go
+├── README.md
+├── tmp
+│   ├── build-errors.log
+│   └── main
+└── zerops.yml
 ```
 
 ## License
