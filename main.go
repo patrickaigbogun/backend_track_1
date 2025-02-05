@@ -128,7 +128,7 @@ func checkForPrime(number int) string {
 
 func handleNumber(w http.ResponseWriter, r *http.Request) {
 	// Define bad request response
-	badRequestResponse := map[string]string{"error": "true", "message": "Invalid number format"}
+	badRequestResponse := map[string]string{"error": "true", "message": "alphabet"}
 
 	// Marshaling bad request response for later use
 	badRequestResponseInJSON, err := json.Marshal(badRequestResponse)
