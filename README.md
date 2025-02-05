@@ -18,9 +18,7 @@ This is a simple backend service built in Go that provides an API endpoint which
 ### Example Response:
 
 ```json
-{
-  
-}
+{"digit_sum":4,"fun_fact":"4 is the smallest composite number that is equal to the sum of its prime factors.","is_perfect":"false","is_prime":"false","number":4,"properties":["armstrong","odd"]}
 ```
 
 ## Requirements
