@@ -9,11 +9,12 @@ import (
 	"net/http"
 	"regexp"
 	"strconv"
-	// "strings"
 )
 
+// Armstrong Number Check for positive and negative values
 func checkForArmstrong(number int) bool {
-	// Convert the number to a string to easily extract digits
+	// Use absolute value for checking Armstrong property
+	number = int(math.Abs(float64(number)))
 	numStr := fmt.Sprintf("%d", number)
 	numDigits := len(numStr)
 	sum := 0
@@ -30,8 +31,12 @@ func checkForArmstrong(number int) bool {
 	return sum == number
 }
 
+// Property Classification, works for both positive and negative values
 func checkForProperties(number int) interface{} {
 	var result interface{}
+
+	// Using absolute value for classification
+	number = int(math.Abs(float64(number)))
 
 	a := [2]string{"armstrong", "odd"}
 	b := [2]string{"armstrong", "even"}
@@ -42,9 +47,9 @@ func checkForProperties(number int) interface{} {
 
 	switch {
 	case x != 0 && checkForArmstrong(number):
-		result = b
-	case x == 0 && checkForArmstrong(number):
 		result = a
+	case x == 0 && checkForArmstrong(number):
+		result = b
 	case x != 0:
 		result = c
 	default:
@@ -54,7 +59,10 @@ func checkForProperties(number int) interface{} {
 	return result
 }
 
+// Sum of Digits, works for negative values as well
 func checkForSum(number int) int {
+	// Use absolute value for sum of digits
+	number = int(math.Abs(float64(number)))
 	sum := 0
 	for number > 0 {
 		sum += number % 10
@@ -63,8 +71,11 @@ func checkForSum(number int) int {
 	return sum
 }
 
-// fetchFunFact retrieves a fun fact about the number from the numbersapi.com API
+// Fetch Fun Fact from numbersapi
 func fetchFunFact(number int) string {
+	// Use absolute value for fetching fun fact
+	number = int(math.Abs(float64(number)))
+
 	// Prepare the URL for the API request
 	url := fmt.Sprintf("http://numbersapi.com/%d/math", number)
 
@@ -86,12 +97,13 @@ func fetchFunFact(number int) string {
 	funFact := string(body)
 
 	return funFact
-
-	// If there's no fun fact in the response, return a default message
-	// return "No fun fact found"
 }
 
-func checkForPerfectNumber(number int) string {
+// Check if the number is a Perfect Number, handles only positive values
+func checkForPerfectNumber(number int) bool {
+	if number <= 0 {
+		return false
+	}
 	sum := 0
 	rem := 0
 
@@ -103,29 +115,30 @@ func checkForPerfectNumber(number int) string {
 	}
 
 	if number == sum {
-		return "true"
+		return true
 	} else {
-		return "false"
+		return false
 	}
 }
 
-func checkForPrime(number int) string {
-	// Edge case: numbers less than or equal to 1 are not prime
+// Check if the number is a Prime Number, handles only positive values
+func checkForPrime(number int) bool {
 	if number <= 1 {
-		return "false"
+		return false
 	}
 
 	// Check for divisibility from 2 to the square root of the number
 	for i := 2; i <= number/2; i++ {
 		if number%i == 0 {
-			return "false"
+			return false
 		}
 	}
 
 	// If no divisor is found, it's a prime number
-	return "true"
+	return true
 }
 
+// HTTP Handler to classify number and return properties, fun facts, etc.
 func handleNumber(w http.ResponseWriter, r *http.Request) {
 	// Define bad request response
 	badRequestResponse := map[string]string{"error": "true", "message": "alphabet"}
@@ -158,15 +171,11 @@ func handleNumber(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Convert the number parameter to an integer
-	// If it's a valid number, this will succeed
 	number, err := strconv.Atoi(numberParam)
 	if err != nil {
 		http.Error(w, "Invalid number parameter", http.StatusBadRequest)
 		return
 	}
-
-	// Respond with the received number
-	fmt.Printf("Received number: %d\n", number)
 
 	// Calculate properties
 	isPrime := checkForPrime(number)
@@ -202,7 +211,7 @@ func main() {
 	// Log server startup
 	log.Println("Server started on port 7000")
 
-	// Handle the "/api/clasify-number" endpoint
+	// Handle the "/api/classify-number" endpoint
 	http.HandleFunc("/api/classify-number", handleNumber)
 
 	// Start the server
