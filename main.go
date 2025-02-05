@@ -173,7 +173,10 @@ func handleNumber(w http.ResponseWriter, r *http.Request) {
 	// Convert the number parameter to an integer
 	number, err := strconv.Atoi(numberParam)
 	if err != nil {
-		http.Error(w, string(badRequestResponseInJSON), http.StatusBadRequest)
+		w.Header().Set("Content-Type", "application/json")
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write(badRequestResponseInJSON)
 		return
 	}
 
