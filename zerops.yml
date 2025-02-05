@@ -1,5 +1,5 @@
 zerops:
-  - setup: goservice
+  - setup: goservice1
     # ==== how to build your application ====
     build:
       # what technologies should the build
@@ -25,7 +25,7 @@ zerops:
       # what ports your app listens on
       # and whether it supports http traffic
       ports:
-        - port: 8080
+        - port: 7000
           httpSupport: true
 
       # how to start your application
