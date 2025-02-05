@@ -140,8 +140,11 @@ func checkForPrime(number int) bool {
 
 // HTTP Handler to classify number and return properties, fun facts, etc.
 func handleNumber(w http.ResponseWriter, r *http.Request) {
+	q := r.URL.Query()
+	numberParam := q.Get("number")
+
 	// Define bad request response
-	badRequestResponse := map[string]string{"error": "true", "message": "abc"}
+	badRequestResponse := map[string]string{"error": "true", "message": numberParam}
 
 	// Marshaling bad request response for later use
 	badRequestResponseInJSON, err := json.Marshal(badRequestResponse)
@@ -155,9 +158,6 @@ func handleNumber(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Only GET methods are allowed", http.StatusMethodNotAllowed)
 		return
 	}
-
-	q := r.URL.Query()
-	numberParam := q.Get("number")
 
 	// Check if the 'number' parameter is alphabetic
 	isAlphabet := regexp.MustCompile(`^[a-zA-Z]+$`).MatchString(numberParam)
@@ -173,7 +173,7 @@ func handleNumber(w http.ResponseWriter, r *http.Request) {
 	// Convert the number parameter to an integer
 	number, err := strconv.Atoi(numberParam)
 	if err != nil {
-		http.Error(w, "Invalid number parameter", http.StatusBadRequest)
+		http.Error(w, string(badRequestResponseInJSON), http.StatusBadRequest)
 		return
 	}
 
