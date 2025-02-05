@@ -144,7 +144,7 @@ func handleNumber(w http.ResponseWriter, r *http.Request) {
 	numberParam := q.Get("number")
 
 	// Define bad request response
-	badRequestResponse := map[string]string{"error": "true", "number": numberParam}
+	badRequestResponse := map[string]interface{}{"error": true, "number": numberParam}
 
 	// Marshaling bad request response for later use
 	badRequestResponseInJSON, err := json.Marshal(badRequestResponse)
