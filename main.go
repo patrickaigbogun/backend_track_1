@@ -203,7 +203,7 @@ func main() {
 	log.Println("Server started on port 7000")
 
 	// Handle the "/api/clasify-number" endpoint
-	http.HandleFunc("/api/clasify-number", handleNumber)
+	http.HandleFunc("/api/classify-number", handleNumber)
 
 	// Start the server
 	log.Fatal(http.ListenAndServe(":7000", nil))
