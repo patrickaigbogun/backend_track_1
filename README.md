@@ -10,7 +10,7 @@ This is a simple backend service built in Go that provides an API endpoint which
 
 ## API Endpoint
 
-- **GET `https://goservice-c85-7000.prg1.zerops.app/api/clasify-number?number=4`**: Returns a JSON object 
+- **GET `https://goservice-c85-7000.prg1.zerops.app/api/classify-number?number=4`**: Returns a JSON object 
 
 
 ### Example Response:
